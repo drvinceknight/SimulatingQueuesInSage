@@ -18,11 +18,12 @@ class Customer:
 def neg_exp(lambd):
     return random.expovariate(lambd)
 
-
-def QSim(lambd=False,mu=False,simulation_time=False):
+@parallel
+def mm1sim(lambd=False,mu=False,simulation_time=False,seed=random.random()):
     """
     This is the main function to call to simulate an MM1 queue.
     """
+    random.seed()  # Need to reset random seed
 
     #Initialise clock
     t=0
@@ -61,4 +62,23 @@ def QSim(lambd=False,mu=False,simulation_time=False):
     Mean_Service_Time=sum(Service_Times)/len(Service_Times)
 
     Utilisation=sum(Service_Times)/t
-    return Mean_Wait, Mean_Times, Mean_Service_Time, Utilisation
+    return Mean_Wait, Mean_Time, Mean_Service_Time, Utilisation
+
+@parallel
+def myrandom(lmbda=1, mu=2, T=5):
+    random.seed()
+    return random.random()
+
+if __name__ == '__main__':
+    lmbda = 1
+    mu = 2
+    T = 10000
+    trials = 50
+    parameters = [(lmbda, mu, T, random.random()) for trials in range(trials)]
+    r = mm1sim(parameters)
+
+    f = open('outputofmm1.csv', 'w')
+    csvwrtr = csv.writer(f)
+    for result in r:
+        csvwrtr.writerow(result[1])
+    f.close()
