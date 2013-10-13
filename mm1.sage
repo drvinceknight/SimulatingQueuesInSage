@@ -72,7 +72,7 @@ def myrandom(lmbda=1, mu=2, T=5):
 if __name__ == '__main__':
     lmbda = 1
     mu = 2
-    T = 10000
+    T = 100000
     trials = 50
     parameters = [(lmbda, mu, T, random.random()) for trials in range(trials)]
     r = mm1sim(parameters)
