@@ -23,7 +23,7 @@ def mm1sim(lambd=False,mu=False,simulation_time=False,seed=random.random()):
     """
     This is the main function to call to simulate an MM1 queue.
     """
-    random.seed()  # Need to reset random seed
+    random.seed()  # Need to reset random seed (or parallel workers all pick same one)
 
     #Initialise clock
     t=0
@@ -72,8 +72,8 @@ def myrandom(lmbda=1, mu=2, T=5):
 if __name__ == '__main__':
     lmbda = 1
     mu = 2
-    T = 100000
-    trials = 50
+    T = 1000000
+    trials = 500
     parameters = [(lmbda, mu, T, random.random()) for trials in range(trials)]
     r = mm1sim(parameters)
 
